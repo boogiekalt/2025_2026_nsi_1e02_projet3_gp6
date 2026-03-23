@@ -15,6 +15,9 @@ JEU EN LIGNE ?? ==>  pythonanywhere (host python)
 etapes utilisation site web (point de vue utilisateur):
 1. entrée site
 2. entrée nom d'utilisateur, password
+3. entrée dans le menu principal du jeu
+4. bouton pour choix de niveau
+5. choix de voiture entre 3 voitures (avec leurs stats)
 
 etapes conception site web (point de vue developpeur):
 1. hébergeur python (pythonanywhere)
