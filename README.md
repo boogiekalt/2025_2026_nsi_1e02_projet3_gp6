@@ -27,5 +27,47 @@ etapes conception site web (point de vue developpeur):
 2. mémoire (json)
 
 
-parties code :
-- data_user.json
+parties code (architecture) :
+front end HTML/JS, backend python
+architecture proposée par IA :
+
+/mon-projet
+│
+├── backend/                 # Code Python backend (Flask)
+│   ├── app.py               # Point d’entrée de l’application Flask
+│   ├── static/              # Fichiers statiques (JS, CSS, images)
+│   │   ├── js/
+│   │   │   └── game.js      # Code JavaScript du jeu
+│   │   └── css/
+│   │       └── style.css    # Styles CSS
+│   ├── templates/           # Templates HTML (avec Jinja2)
+│   │   └── index.html       # Page principale du jeu
+│   └── data/
+│       └── save.json        # Fichier JSON pour stocker les données du jeu
+│
+├── requirements.txt         # Dépendances Python
+└── README.md                # Documentation du projet
+
+description :
+1. Backend (Flask)
+app.py :
+Sert la page HTML principale (index.html) via une route Flask.
+Expose des API REST (ex : /api/save, /api/load) pour recevoir/envoyer des données JSON.
+Lit et écrit dans data/save.json pour stocker les données du jeu.
+2. Frontend (HTML/JS/CSS)
+templates/index.html :
+
+Page HTML chargée dans le navigateur.
+Charge les fichiers JS et CSS depuis static/.
+Contient la structure de la page et le canevas du jeu.
+static/js/game.js :
+
+Contient le code JavaScript du jeu (logique, animations, interactions).
+Communique avec le backend via fetch() pour envoyer et recevoir des données JSON.
+static/css/style.css :
+
+Styles visuels pour le jeu et la page.
+3. Données JSON
+data/save.json :
+Stocke des données persistantes (ex : scores, états de jeu).
+Manipulé côté serveur via Python
