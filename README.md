@@ -16,8 +16,11 @@ etapes utilisation site web (point de vue utilisateur):
 1. entrée site
 2. entrée nom d'utilisateur, password
 3. entrée dans le menu principal du jeu
-4. bouton pour choix de niveau
-5. choix de voiture entre 3 voitures (avec leurs stats)
+4. choix du niveau entre 4 niveaux (affichage au-dessus: easy,medium,hard,impossible )
+5. choix de voiture entre 3 voitures qui s'améliorent en fonction du niveau (avec leurs stats)
+6. choix de circuit entre 3 circuits de plus en plus durs (ex: monaco)
+7. appuyer bouton start (compte à rebours: feu tricolore de départ style F1)
+8. possibilité d'appyuer sur pause (affichage trois boutons: continue, restart, quit)
 
 etapes conception site web (point de vue developpeur):
 1. hébergeur python (pythonanywhere)
