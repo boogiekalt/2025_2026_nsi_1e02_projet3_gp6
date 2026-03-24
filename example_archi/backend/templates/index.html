@@ -4,10 +4,49 @@
     <meta charset="UTF-8" />
     <title>Mon Jeu Web</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+        #gameCanvas {
+            background-color: green;
+            display: block;
+            margin: 20px auto;
+            border: 2px solid black;
+        }
+        .controls {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: pink;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            color: black;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #ff69b4;
+        }
+    </style>
 </head>
 <body>
     <h1>Mon jeu en ligne</h1>
-    <canvas id="gameCanvas" width="800" height="600"></canvas>
+    <canvas id="gameCanvas" width="1600" height="600"></canvas>
+    
+    <div class="controls">
+        <button id="upBtn">⬆ Haut</button>
+        <button id="downBtn">⬇ Bas</button>
+    </div>
 
     <script src="{{ url_for('static', filename='js/game.js') }}"></script>
 </body>
