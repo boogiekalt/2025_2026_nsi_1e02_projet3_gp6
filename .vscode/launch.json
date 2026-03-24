@@ -7,14 +7,20 @@
     
 
         {
-            "name": "Launch Program",
-            "program": "${workspaceFolder}/app.js",
+            "name": "Python: Flask",
+            "type": "python",
             "request": "launch",
-            "runtimeExecutable": "node",
-            "skipFiles": [
-                "<node_internals>/**"
+            "module": "flask",
+            "cwd": "${workspaceFolder}/example_archi/backend",
+            "env": {
+                "FLASK_APP": "app.py",
+                "FLASK_ENV": "development"
+            },
+            "args": [
+                "run"
             ],
-            "type": "node"
+            "jinja": true,
+            "justMyCode": true
         }
 
     ]
