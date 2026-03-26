@@ -5,8 +5,9 @@ Bogdan Kaltrachian
 Valentine Malavasi
 Axel Viala
 
-commande installe flask : & 'c:\Users\valen\AppData\Local\Programs\Python\Python313\python.exe'-m pip install flask     
-                          & 'c:\Users\valen\AppData\Local\Programs\Python\Python313\python.exe'-m pip install node       # (with own user)
+commande installe flask :
+& 'c:\Users\valen\AppData\Local\Programs\Python\Python313\python.exe'-m pip install flask
+& 'c:\Users\valen\AppData\Local\Programs\Python\Python313\python.exe'-m pip install node       # (with own user)
 
 projet :
 Jeu ==> course de voitures
