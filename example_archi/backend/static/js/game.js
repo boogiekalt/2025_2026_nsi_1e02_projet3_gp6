@@ -111,14 +111,6 @@ function draw() {
 
 draw();
 
-// Boutons de contrôle
-document.getElementById('upBtn').addEventListener('click', function() {
-    y -= 5;
-});
-
-document.getElementById('downBtn').addEventListener('click', function() {
-    y += 5;
-});
 
 // Exemple de sauvegarde des données (position du cercle) sur serveur
 async function saveGame() {

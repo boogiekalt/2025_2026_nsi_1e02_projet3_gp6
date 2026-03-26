@@ -12,10 +12,10 @@
             padding: 20px;
         }
         #gameCanvas {
-            background-color: green;
+            background-color: rgb(41, 196, 41);
             display: block;
             margin: 20px auto;
-            border: 2px solid black;
+            border: 2px solid rgb(12, 14, 12);
         }
         .controls {
             margin-top: 20px;
@@ -24,30 +24,15 @@
             gap: 10px;
             flex-wrap: wrap;
         }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: pink;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            color: black;
-            font-weight: bold;
-        }
-        button:hover {
-            background-color: #ff69b4;
-        }
+       
+        
     </style>
 </head>
 <body>
     <h1>Mon jeu en ligne</h1>
     <canvas id="gameCanvas" width="1600" height="600"></canvas>
     
-    <div class="controls">
-        <button id="upBtn">⬆ Haut</button>
-        <button id="downBtn">⬇ Bas</button>
-    </div>
-
+    
     <script src="{{ url_for('static', filename='js/game.js') }}"></script>
 </body>
 </html>
