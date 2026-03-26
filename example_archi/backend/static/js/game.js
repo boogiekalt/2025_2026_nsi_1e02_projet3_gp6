@@ -99,12 +99,12 @@ function draw() {
     }
     
     // Limiter le mouvement horizontal
-    if (x > canvas.width - 20) x = canvas.width - 20;
-    if (x < 20) x = 20;
+    if (x > canvas.width - 10) x = canvas.width - 10;
+    if (x < 10) x = 10;
     
     // Limiter le mouvement vertical
-    if (y < 25) y = 25;
-    if (y > canvas.height - 25) y = canvas.height - 25;
+    if (y < 12) y = 12;
+    if (y > canvas.height - 12) y = canvas.height - 12;
 
     requestAnimationFrame(draw);
 }
