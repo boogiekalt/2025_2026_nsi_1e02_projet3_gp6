@@ -24,22 +24,22 @@ document.addEventListener('keyup', function(event) {
 function drawCar(xPos, yPos) {
     // Carrosserie
     ctx.fillStyle = 'red';
-    ctx.fillRect(xPos - 20, yPos - 10, 40, 20);
+    ctx.fillRect(xPos - 10, yPos - 5, 20, 10);
     
     // Fenêtre
     ctx.fillStyle = 'lightblue';
-    ctx.fillRect(xPos - 15, yPos - 7.5, 30, 10);
+    ctx.fillRect(xPos - 7.5, yPos - 3.75, 15, 7.5)
     
     // Roue gauche
     ctx.fillStyle = 'black';
     ctx.beginPath();
-    ctx.arc(xPos - 12.5, yPos + 10, 5, 0, Math.PI * 2);
+    ctx.arc(xPos -7.7,yPos + 5,2.5,0,Math.PI*2);
     ctx.fill();
     ctx.closePath();
     
     // Roue droite
     ctx.beginPath();
-    ctx.arc(xPos + 12.5, yPos + 10, 5, 0, Math.PI * 2);
+    ctx.arc(xPos + 7.7,yPos +5,2.5,0,Math.PI * 2);
     ctx.fill();
     ctx.closePath();
 }
