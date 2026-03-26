@@ -75,3 +75,12 @@ Styles visuels pour le jeu et la page.
 data/save.json :
 Stocke des données persistantes (ex : scores, états de jeu).
 Manipulé côté serveur via Python
+
+
+To do :
+augmenter longueur rectangle
+design graphique : maisons et voitures a esquiver
+menu déroulant accessible avec toches clavier 1234&é"' pour changer voitures
+page accueil login
+hébergement jeu en ligne
+monétisation ?
