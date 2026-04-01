@@ -44,6 +44,24 @@ function drawCar(xPos, yPos) {
     ctx.closePath();
 }
 
+// Essai de dessin d'une piste de course (racetrack)
+function drawRacetrack(xPos, yPos) {
+    ctx.beginPath();
+
+    // Ovale extérieur (noir)
+    ctx.fillStyle = 'black';
+    ctx.ellipse(xPos, yPos, 120, 60, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Ovale intérieur (vide/blanc)
+    ctx.beginPath();
+    ctx.fillStyle = 'white';
+    ctx.ellipse(xPos, yPos, 90, 40, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.closePath();
+}
+
 function draw() {
     // Draw green background
     ctx.fillStyle = 'green';
