@@ -67,6 +67,7 @@ function draw() {
     ctx.fillStyle = 'green';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     drawCar(x, y);
+    drawRacetrack(x, y);
 
     // Accélération/Décélération horizontale avec Left/Right arrow
     if (keys['ArrowRight']) {
