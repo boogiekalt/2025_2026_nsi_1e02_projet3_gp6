@@ -15,6 +15,7 @@ vue : de haut (circuit, voiture contrôllable avec le clavier)
 3 niveaux (3 circuits, de plus en plus de virages, 3 voitures à débloquer)
 temps enregistré à chaque fois, le but est de battre son temps et les autres coureurs
 JEU EN LIGNE ?? ==>  pythonanywhere (host python)
+BOT VOITURE IA ????
 
 etapes utilisation site web (point de vue utilisateur):
 1. entrée site

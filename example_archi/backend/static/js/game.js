@@ -1,6 +1,9 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
+const backgroundImage = new Image();
+backgroundImage.src = '/templates/circuit_1.jpg' //verifier chemin
+
 // Exemple simple : dessiner une voiture qui bouge
 let x = 50;
 let y = 300;
@@ -46,9 +49,12 @@ function drawCar(xPos, yPos) {
 
 
 function draw() {
-    // Draw green background
-    ctx.fillStyle = 'green';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    if (backgroundImage.complete) {  
+        ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+    } else {
+        ctx.fillStyle = 'green';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
     drawCar(x, y);
 
     // Accélération/Décélération horizontale avec Left/Right arrow
