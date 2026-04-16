@@ -20,10 +20,13 @@ def save_data():
 @app.route('/api/load', methods=['GET'])
 def load_data():
     if os.path.exists(DATA_FILE):
-        with open(DATA_FILE, 'r') as f:
-            data = json.load(f)
+        try:
+            with open(DATA_FILE, 'r') as f:
+                data = json.load(f)
+        except json.JSONDecodeError:
+            data = {"x": 50, "y": 300}
     else:
-        data = {}
+        data = {"x": 50, "y": 300}
     return jsonify(data)
 
 if __name__ == '__main__':
