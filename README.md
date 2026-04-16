@@ -85,3 +85,7 @@ menu déroulant accessible avec toches clavier 1234&é"' pour changer voitures
 page accueil login
 hébergement jeu en ligne
 monétisation ?
+
+
+commande pour le remove_bg.py : rembg i input.png output.png
+site avec les voitures en angles de vue différents : https://pixel-salvaje.itch.io/pixelwheels-ferrari-pixel-art-car
