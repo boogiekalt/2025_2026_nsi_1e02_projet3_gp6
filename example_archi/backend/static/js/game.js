@@ -31,9 +31,6 @@ carRightDown.src = '/static/img/car_right_down.png';
 const carLeftDown = new Image();
 carLeftDown.src = '/static/img/car_left_down.png';
 
-// Image courante (IMPORTANT)
-let currentCarImage = carUp;
-
 // Position et vitesses
 let x = 50;
 let y = 300;
