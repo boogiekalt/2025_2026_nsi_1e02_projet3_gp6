@@ -2,6 +2,34 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
+// Canvas invisible pour la collision
+const collisionCanvas = document.getElementById("collisionCanvas");
+const collisionCtx = collisionCanvas.getContext("2d");
+
+// Image masque noir/blanc
+const collisionMap = new Image();
+collisionMap.src = "/static/img/collision_map.png";
+
+collisionMap.onload = () => {
+    collisionCtx.drawImage(collisionMap, 0, 0);
+};
+
+function isOnRoad(x, y) {
+    const pixel = collisionCtx.getImageData(x, y, 1, 1).data;
+
+    const r = pixel[0];
+    const g = pixel[1];
+    const b = pixel[2];
+
+    // NOIR = route (0,0,0)
+    if (r === 0 && g === 0 && b === 0) {
+        return true;
+    }
+
+    // BLANC = mur (255,255,255)
+    return false;
+}
+
 // Fond
 const backgroundImage = new Image();
 backgroundImage.src = '/static/img/circuit_1.jpg'; // adapte si besoin
@@ -34,8 +62,8 @@ carLeftDown.src = '/static/img/car_left_down.png';
 // Position et vitesses
 let x = 50;
 let y = 300;
-let carSpeed = 0;
-let carSpeedY = 0;
+let carSpeedx = 0;
+let carSpeedy = 0;
 
 // Suivi des touches
 const keys = {};
@@ -86,18 +114,10 @@ function drawCar(xPos, yPos) {
 
 // Boucle de dessin
 function draw() {
-    // Fond
-    if (backgroundImage.complete) {
-        ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
-    } else {
-        ctx.fillStyle = 'green';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-    }
+    // 1) Fond
+    ctx.drawImage(backgroundImage, 0, 0);
 
-    // Voiture
-    drawCar(x, y);
-
-    // Accélération/Décélération horizontale
+    // 2) Accélération horizontale
     if (keys['ArrowRight']) {
         carSpeed = Math.min(carSpeed + 0.5, 8);
     }
@@ -108,9 +128,8 @@ function draw() {
         carSpeed *= 0.95;
         if (Math.abs(carSpeed) < 0.1) carSpeed = 0;
     }
-    x += carSpeed;
 
-    // Accélération/Décélération verticale
+    // 3) Accélération verticale
     if (keys['ArrowUp']) {
         carSpeedY = Math.max(carSpeedY - 0.5, -8);
     }
@@ -121,15 +140,22 @@ function draw() {
         carSpeedY *= 0.95;
         if (Math.abs(carSpeedY) < 0.1) carSpeedY = 0;
     }
-    y += carSpeedY;
 
-    // Limites
-    if (x > canvas.width - 10) x = canvas.width - 10;
-    if (x < 10) x = 10;
-    if (y < 12) y = 12;
-    if (y > canvas.height - 12) y = canvas.height - 12;
+    // 4) Collision AVANT de bouger
+    let nextX = x + carSpeedx;
+    let nextY = y + carSpeedY;
 
+    const centerX = nextX;
+    const centerY = nextY;
+
+    if (isOnRoad(centerX, centerY)) {
+        x = nextX;
+        y = nextY;
+    }
+
+    // 5) Dessiner la voiture APRÈS mise à jour
+    drawCar(x, y);
+
+    // 6) Boucle
     requestAnimationFrame(draw);
 }
-
-draw();
