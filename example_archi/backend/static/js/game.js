@@ -1,3 +1,6 @@
+alert('game.js chargé');
+console.log('game.js chargé');
+
 // Récupération du canvas
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
@@ -33,6 +36,9 @@ function isOnRoad(x, y) {
 // Fond
 const backgroundImage = new Image();
 backgroundImage.src = '/static/img/circuit_1.jpg'; // adapte si besoin
+backgroundImage.onload = () => console.log("FOND OK");
+backgroundImage.onerror = () => console.log("FOND INTROUVABLE");
+
 
 // Images de la voiture
 const carUp = new Image();
@@ -60,8 +66,8 @@ const carLeftDown = new Image();
 carLeftDown.src = '/static/img/car_left_down.png';
 
 // Position et vitesses
-let x = 50;
-let y = 300;
+let x = 1200;
+let y = 400;
 let carSpeedx = 0;
 let carSpeedy = 0;
 
@@ -119,31 +125,31 @@ function draw() {
 
     // 2) Accélération horizontale
     if (keys['ArrowRight']) {
-        carSpeed = Math.min(carSpeed + 0.5, 8);
+        carSpeedx = Math.min(carSpeedx + 0.5, 8);
     }
     if (keys['ArrowLeft']) {
-        carSpeed = Math.max(carSpeed - 0.5, -8);
+        carSpeedx = Math.max(carSpeedx - 0.5, -8);
     }
     if (!keys['ArrowLeft'] && !keys['ArrowRight']) {
-        carSpeed *= 0.95;
-        if (Math.abs(carSpeed) < 0.1) carSpeed = 0;
+        carSpeedx *= 0.95;
+        if (Math.abs(carSpeedx) < 0.1) carSpeedx = 0;
     }
 
     // 3) Accélération verticale
     if (keys['ArrowUp']) {
-        carSpeedY = Math.max(carSpeedY - 0.5, -8);
+        carSpeedy = Math.max(carSpeedy - 0.5, -8);
     }
     if (keys['ArrowDown']) {
-        carSpeedY = Math.min(carSpeedY + 0.5, 8);
+        carSpeedy = Math.min(carSpeedy + 0.5, 8);
     }
     if (!keys['ArrowUp'] && !keys['ArrowDown']) {
-        carSpeedY *= 0.95;
-        if (Math.abs(carSpeedY) < 0.1) carSpeedY = 0;
+        carSpeedy *= 0.95;
+        if (Math.abs(carSpeedy) < 0.1) carSpeedy = 0;
     }
 
     // 4) Collision AVANT de bouger
     let nextX = x + carSpeedx;
-    let nextY = y + carSpeedY;
+    let nextY = y + carSpeedy;
 
     const centerX = nextX;
     const centerY = nextY;
@@ -159,3 +165,6 @@ function draw() {
     // 6) Boucle
     requestAnimationFrame(draw);
 }
+
+console.log("APPEL MANUEL DE DRAW");
+draw();
