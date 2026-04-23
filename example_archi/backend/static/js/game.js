@@ -1,6 +1,3 @@
-alert('game.js chargé');
-console.log('game.js chargé');
-
 // Récupération du canvas
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
@@ -66,8 +63,8 @@ const carLeftDown = new Image();
 carLeftDown.src = '/static/img/car_left_down.png';
 
 // Position et vitesses
-let x = 1200;
-let y = 400;
+let x = 1336;
+let y = 415;
 let carSpeedx = 0;
 let carSpeedy = 0;
 
@@ -125,10 +122,10 @@ function draw() {
 
     // 2) Accélération horizontale
     if (keys['ArrowRight']) {
-        carSpeedx = Math.min(carSpeedx + 0.5, 8);
+        carSpeedx = Math.min(carSpeedx + 0.3, 4);
     }
     if (keys['ArrowLeft']) {
-        carSpeedx = Math.max(carSpeedx - 0.5, -8);
+        carSpeedx = Math.max(carSpeedx - 0.3, -4);
     }
     if (!keys['ArrowLeft'] && !keys['ArrowRight']) {
         carSpeedx *= 0.95;
@@ -137,10 +134,10 @@ function draw() {
 
     // 3) Accélération verticale
     if (keys['ArrowUp']) {
-        carSpeedy = Math.max(carSpeedy - 0.5, -8);
+        carSpeedy = Math.max(carSpeedy - 0.3, -4);
     }
     if (keys['ArrowDown']) {
-        carSpeedy = Math.min(carSpeedy + 0.5, 8);
+        carSpeedy = Math.min(carSpeedy + 0.3, 4);
     }
     if (!keys['ArrowUp'] && !keys['ArrowDown']) {
         carSpeedy *= 0.95;
