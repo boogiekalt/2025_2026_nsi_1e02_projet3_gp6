@@ -79,18 +79,7 @@ Manipulé côté serveur via Python
 
 
 To do :
-
-changements de direction a coder :
-if car_down :
-    if right_arrow pressed :
-        car right_down
-    elif left_arrow pressed :
-        car left_down
-elif car_right : 
-elif car_up :
-elif car_left :
-
-+ coder mouvements diagonale
+coder mouvements diagonale when 2 arrow keys pressed
 
 + barre vitesse 
 menu déroulant accessible avec toches clavier 1234&é"' pour changer voitures
