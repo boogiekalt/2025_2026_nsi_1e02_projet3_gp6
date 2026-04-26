@@ -79,13 +79,23 @@ Manipulé côté serveur via Python
 
 
 To do :
-augmenter longueur rectangle
-design graphique : maisons et voitures a esquiver
+
+changements de direction a coder :
+if car_down :
+    if right_arrow pressed :
+        car right_down
+    elif left_arrow pressed :
+        car left_down
+elif car_right : 
+elif car_up :
+elif car_left :
+
++ coder mouvements diagonale
+
 + barre vitesse 
 menu déroulant accessible avec toches clavier 1234&é"' pour changer voitures
 page accueil login
 hébergement jeu en ligne
-monétisation ?
 
 
 commande pour le remove_bg.py : rembg i input.png output.png
