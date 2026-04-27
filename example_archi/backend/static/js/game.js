@@ -68,6 +68,21 @@ let y = 415;
 let carSpeedx = 0;
 let carSpeedy = 0;
 
+// --- Décompte ---
+let countdown = 3;
+let countdownActive = true;
+let countdownTimer = 0;
+
+// --- Chrono ---
+let chronoStart = 0;
+let chronoRunning = false;
+let chronoTime = 0;
+
+// --- Tours ---
+let laps = 0;
+let maxLaps = 3;
+let lastCross = false;
+
 // Suivi des touches
 const keys = {};
 
@@ -102,6 +117,11 @@ function updateCarImage() {
     if (right) { currentCarImage = carRight; return; }
 }
 
+function startChrono() {
+    chronoStart = performance.now();
+    chronoRunning = true;
+}
+
 let currentCarImage = carUp;
 
 // Dessin de la voiture
@@ -115,12 +135,37 @@ function drawCar(xPos, yPos) {
     }
 }
 
-// Boucle de dessin
+//BOUCLE DE DESSIN
 function draw() {
-    // 1) Fond
+
+    // --- DÉCOMPTE ---
+    if (countdownActive) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(backgroundImage, 0, 0);
+
+        ctx.fillStyle = "white";
+        ctx.font = "120px Arial";
+        ctx.textAlign = "center";
+        ctx.fillText(countdown > 0 ? countdown : "GO!", canvas.width / 2, canvas.height / 2);
+
+        if (performance.now() - countdownTimer > 1000) {
+            countdown--;
+            countdownTimer = performance.now();
+
+            if (countdown < -1) {
+                countdownActive = false;
+                startChrono();
+            }
+        }
+
+        requestAnimationFrame(draw);
+        return; // IMPORTANT !!!
+    }
+
+    // --- FOND ---
     ctx.drawImage(backgroundImage, 0, 0);
 
-    // 2) Accélération horizontale
+    // --- ACCÉLÉRATION HORIZONTALE ---
     if (keys['ArrowRight']) {
         carSpeedx = Math.min(carSpeedx + 0.3, 4);
     }
@@ -132,7 +177,7 @@ function draw() {
         if (Math.abs(carSpeedx) < 0.1) carSpeedx = 0;
     }
 
-    // 3) Accélération verticale
+    // --- ACCÉLÉRATION VERTICALE ---
     if (keys['ArrowUp']) {
         carSpeedy = Math.max(carSpeedy - 0.3, -4);
     }
@@ -144,24 +189,61 @@ function draw() {
         if (Math.abs(carSpeedy) < 0.1) carSpeedy = 0;
     }
 
-    // 4) Collision AVANT de bouger
+    // --- COLLISION ---
     let nextX = x + carSpeedx;
     let nextY = y + carSpeedy;
 
-    const centerX = nextX;
-    const centerY = nextY;
-
-    if (isOnRoad(centerX, centerY)) {
+    if (isOnRoad(nextX, nextY)) {
         x = nextX;
         y = nextY;
     }
 
-    // 5) Dessiner la voiture APRÈS mise à jour
+    // --- DÉTECTION LIGNE D'ARRIVÉE ---
+    let onFinish = isOnFinishLine(x, y);
+
+    if (onFinish && !lastCross) {
+        laps++;
+        console.log("Tour :", laps);
+
+        if (laps >= maxLaps) {
+            chronoRunning = false;
+            console.log("Course terminée !");
+        }
+    }
+
+    lastCross = onFinish;
+
+    // --- DESSIN VOITURE ---
     drawCar(x, y);
 
-    // 6) Boucle
+    // --- CHRONO ---
+    if (chronoRunning) {
+        chronoTime = performance.now() - chronoStart;
+
+        let ms = Math.floor(chronoTime % 1000);
+        let s = Math.floor((chronoTime / 1000) % 60);
+        let m = Math.floor(chronoTime / 60000);
+
+        ctx.fillStyle = "white";
+        ctx.font = "30px Arial";
+        ctx.fillText(
+            `${m}:${s.toString().padStart(2, '0')}.${ms.toString().padStart(3, '0')}`,
+            100, 50
+        );
+    }
+
     requestAnimationFrame(draw);
 }
 
+
+function isOnFinishLine(x, y) {
+    const pixel = collisionCtx.getImageData(x, y, 1, 1).data;
+    return pixel[0] === 255 && pixel[1] === 0 && pixel[2] === 0;
+}
+
 console.log("APPEL MANUEL DE DRAW");
-draw();
+
+window.onload = () => {
+    countdownTimer = performance.now();   // ← LA LIGNE EXACTE
+    draw();
+};
