@@ -16,17 +16,15 @@ collisionMap.onload = () => {
 
 function isOnRoad(x, y) {
     const pixel = collisionCtx.getImageData(x, y, 1, 1).data;
+    const r = pixel[0], g = pixel[1], b = pixel[2];
 
-    const r = pixel[0];
-    const g = pixel[1];
-    const b = pixel[2];
+    // Noir = route
+    if (r === 0 && g === 0 && b === 0) return true;
 
-    // NOIR = route (0,0,0)
-    if (r === 0 && g === 0 && b === 0) {
-        return true;
-    }
+    // Rouge = ligne d'arrivée → autorisé pour rouler
+    if (r === 255 && g === 0 && b === 0) return true;
 
-    // BLANC = mur (255,255,255)
+    // Blanc = mur
     return false;
 }
 
@@ -231,6 +229,10 @@ function draw() {
             100, 50
         );
     }
+    // --- AFFICHAGE DES TOURS ---
+    ctx.fillStyle = "white";
+    ctx.font = "30px Arial";
+    ctx.fillText(`Tour : ${laps} / ${maxLaps}`, 100, 90);
 
     requestAnimationFrame(draw);
 }
