@@ -18,14 +18,11 @@ function isOnRoad(x, y) {
     const pixel = collisionCtx.getImageData(x, y, 1, 1).data;
     const r = pixel[0], g = pixel[1], b = pixel[2];
 
-    // Noir = route
-    if (r === 0 && g === 0 && b === 0) return true;
+    // tolérance
+    const isBlack = r < 10 && g < 10 && b < 10;
+    const isRed = r > 240 && g < 10 && b < 10;
 
-    // Rouge = ligne d'arrivée → autorisé pour rouler
-    if (r === 255 && g === 0 && b === 0) return true;
-
-    // Blanc = mur
-    return false;
+    return isBlack || isRed;
 }
 
 // Fond
@@ -187,14 +184,23 @@ function draw() {
         if (Math.abs(carSpeedy) < 0.1) carSpeedy = 0;
     }
 
-    // --- COLLISION ---
-    let nextX = x + carSpeedx;
-    let nextY = y + carSpeedy;
+// --- COLLISION ---
+let nextX = x + carSpeedx;
+let nextY = y + carSpeedy;
 
-    if (isOnRoad(nextX, nextY)) {
-        x = nextX;
-        y = nextY;
-    }
+// Test horizontal
+if (isOnRoad(nextX, y)) {
+    x = nextX;
+} else {
+    carSpeedx *= -1;
+}
+
+// Test vertical
+if (isOnRoad(x, nextY)) {
+    y = nextY;
+} else {
+    carSpeedy *= -1;
+}
 
     // --- DÉTECTION LIGNE D'ARRIVÉE ---
     let onFinish = isOnFinishLine(x, y);
