@@ -28,6 +28,23 @@
         
     </style>
 </head>
+
+<div id="raceResults" class="results-overlay" style="display:none;">
+    <div class="results-window">
+        <h2>🏁 Course terminée</h2>
+        <p id="finalTime"></p>
+        <p id="finalLaps"></p>
+
+        <h3>📜 Scores précédents</h3>
+        <ul id="scoreList"></ul>
+
+        <div class="buttons">
+            <button id="retryBtn">Rejouer</button>
+            <button id="menuBtn">Retour au menu</button>
+        </div>
+    </div>
+</div>
+
 <body>
     <h1>Course Toto</h1>
     <canvas id="gameCanvas" width="1500" height="600"></canvas>
