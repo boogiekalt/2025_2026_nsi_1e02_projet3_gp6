@@ -188,6 +188,55 @@ function draw() {
 let nextX = x + carSpeedx;
 let nextY = y + carSpeedy;
 
+// --- FENETRE DE SCORE APRES LA PARTIE
+function showResults() {
+    // Temps final formaté
+    let ms = Math.floor(chronoTime % 1000);
+    let s = Math.floor((chronoTime / 1000) % 60);
+    let m = Math.floor(chronoTime / 60000);
+    const finalTime = `${m}:${s.toString().padStart(2, '0')}.${ms.toString().padStart(3, '0')}`;
+
+    // Charger anciens scores
+    let scores = JSON.parse(localStorage.getItem("scores")) || [];
+
+    // Ajouter score actuel
+    scores.push({
+        time: finalTime,
+        laps: laps,
+        date: new Date().toLocaleString()
+    });
+
+    // Sauvegarder
+    localStorage.setItem("scores", JSON.stringify(scores));
+
+    // Afficher dans la popup
+    document.getElementById("finalTime").textContent = "Temps final : " + finalTime;
+    document.getElementById("finalLaps").textContent = `Tours : ${laps}/${maxLaps}`;
+
+    // Liste des scores
+    const list = document.getElementById("scoreList");
+    list.innerHTML = "";
+    scores.slice(-5).forEach(s => {
+        const li = document.createElement("li");
+        li.textContent = `${s.time} (${s.laps} tours)`;
+        list.appendChild(li);
+    });
+
+    // Afficher la popup
+    document.getElementById("raceResults").style.display = "flex";
+
+    // Boutons
+    document.getElementById("retryBtn").onclick = () => location.reload();
+    document.getElementById("menuBtn").onclick = () => {
+        console.log("Retour au menu (à coder)");
+        // plus tard : window.location.href = "menu.html";
+    };
+}
+if (laps === maxLaps) {
+    chronoRunning = false;
+    showResults(); // ← ICI
+}
+
 // Test horizontal
 if (isOnRoad(nextX, y)) {
     x = nextX;
@@ -252,6 +301,6 @@ function isOnFinishLine(x, y) {
 console.log("APPEL MANUEL DE DRAW");
 
 window.onload = () => {
-    countdownTimer = performance.now();   // ← LA LIGNE EXACTE
+    countdownTimer = performance.now();
     draw();
 };
