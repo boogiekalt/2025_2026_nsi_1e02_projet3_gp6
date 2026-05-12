@@ -10,6 +10,8 @@ const collisionCtx = collisionCanvas.getContext("2d");
 const collisionMap = new Image();
 collisionMap.src = "/static/img/collision_map.png";
 
+let raceFinished = false;
+
 collisionMap.onload = () => {
     collisionCtx.drawImage(collisionMap, 0, 0);
 };
@@ -229,12 +231,13 @@ function showResults() {
     document.getElementById("retryBtn").onclick = () => location.reload();
     document.getElementById("menuBtn").onclick = () => {
         console.log("Retour au menu (à coder)");
-        // plus tard : window.location.href = "menu.html";
     };
 }
-if (laps === maxLaps) {
+if (laps >= maxLaps && !raceFinished) {
+    raceFinished = true; // empêche les doublons
     chronoRunning = false;
-    showResults(); // ← ICI
+    showResults();
+    console.log("Course terminée !");
 }
 
 // Test horizontal
@@ -257,13 +260,15 @@ if (isOnRoad(x, nextY)) {
     if (onFinish && !lastCross) {
         laps++;
         console.log("Tour :", laps);
-
-        if (laps >= maxLaps) {
+    
+        if (laps >= maxLaps && !raceFinished) {
+            raceFinished = true; // empêche les doublons
             chronoRunning = false;
+            showResults(); // ← APPEL UNIQUE
             console.log("Course terminée !");
         }
     }
-
+    
     lastCross = onFinish;
 
     // --- DESSIN VOITURE ---
