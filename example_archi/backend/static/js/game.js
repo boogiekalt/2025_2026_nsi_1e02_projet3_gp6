@@ -74,7 +74,7 @@ let chronoRunning = false;
 let chronoTime = 0;
 
 // --- Tours ---
-let laps = 0;
+let laps = -1;
 let maxLaps = 3;
 let lastCross = false;
 
