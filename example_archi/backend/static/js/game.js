@@ -10,6 +10,8 @@ const collisionCtx = collisionCanvas.getContext("2d");
 const collisionMap = new Image();
 collisionMap.src = "/static/img/collision_map.png";
 
+let raceFinished = false;
+
 collisionMap.onload = () => {
     collisionCtx.drawImage(collisionMap, 0, 0);
 };
@@ -74,7 +76,7 @@ let chronoRunning = false;
 let chronoTime = 0;
 
 // --- Tours ---
-let laps = 0;
+let laps = -1;
 let maxLaps = 3;
 let lastCross = false;
 
@@ -188,6 +190,56 @@ function draw() {
 let nextX = x + carSpeedx;
 let nextY = y + carSpeedy;
 
+// --- FENETRE DE SCORE APRES LA PARTIE
+function showResults() {
+    // Temps final formaté
+    let ms = Math.floor(chronoTime % 1000);
+    let s = Math.floor((chronoTime / 1000) % 60);
+    let m = Math.floor(chronoTime / 60000);
+    const finalTime = `${m}:${s.toString().padStart(2, '0')}.${ms.toString().padStart(3, '0')}`;
+
+    // Charger anciens scores
+    let scores = JSON.parse(localStorage.getItem("scores")) || [];
+
+    // Ajouter score actuel
+    scores.push({
+        time: finalTime,
+        laps: laps,
+        date: new Date().toLocaleString()
+    });
+
+    // Sauvegarder
+    localStorage.setItem("scores", JSON.stringify(scores));
+
+    // Afficher dans la popup
+    document.getElementById("finalTime").textContent = "Temps final : " + finalTime;
+    document.getElementById("finalLaps").textContent = `Tours : ${laps}/${maxLaps}`;
+
+    // Liste des scores
+    const list = document.getElementById("scoreList");
+    list.innerHTML = "";
+    scores.slice(-5).forEach(s => {
+        const li = document.createElement("li");
+        li.textContent = `${s.time} (${s.laps} tours)`;
+        list.appendChild(li);
+    });
+
+    // Afficher la popup
+    document.getElementById("raceResults").style.display = "flex";
+
+    // Boutons
+    document.getElementById("retryBtn").onclick = () => location.reload();
+    document.getElementById("menuBtn").onclick = () => {
+        console.log("Retour au menu (à coder)");
+    };
+}
+if (laps >= maxLaps && !raceFinished) {
+    raceFinished = true; // empêche les doublons
+    chronoRunning = false;
+    showResults();
+    console.log("Course terminée !");
+}
+
 // Test horizontal
 if (isOnRoad(nextX, y)) {
     x = nextX;
@@ -208,13 +260,15 @@ if (isOnRoad(x, nextY)) {
     if (onFinish && !lastCross) {
         laps++;
         console.log("Tour :", laps);
-
-        if (laps >= maxLaps) {
+    
+        if (laps >= maxLaps && !raceFinished) {
+            raceFinished = true; // empêche les doublons
             chronoRunning = false;
+            showResults(); // ← APPEL UNIQUE
             console.log("Course terminée !");
         }
     }
-
+    
     lastCross = onFinish;
 
     // --- DESSIN VOITURE ---
@@ -252,6 +306,6 @@ function isOnFinishLine(x, y) {
 console.log("APPEL MANUEL DE DRAW");
 
 window.onload = () => {
-    countdownTimer = performance.now();   // ← LA LIGNE EXACTE
+    countdownTimer = performance.now();
     draw();
 };
