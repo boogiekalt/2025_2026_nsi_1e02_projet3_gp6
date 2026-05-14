@@ -16,6 +16,25 @@ collisionMap.onload = () => {
     collisionCtx.drawImage(collisionMap, 0, 0);
 };
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function loadCircuit(num) {
+  switch (num) {
+    case 1:
+      window.location.href = "circuit1.html";
+      break;
+    case 2:
+      window.location.href = "circuit2.html";
+      break;
+    case 3:
+      window.location.href = "circuit3.html";
+      break;
+  }
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 function isOnRoad(x, y) {
     const pixel = collisionCtx.getImageData(x, y, 1, 1).data;
     const r = pixel[0], g = pixel[1], b = pixel[2];
@@ -176,7 +195,7 @@ function showResults() {
     // Boutons
     document.getElementById("retryBtn").onclick = () => location.reload();
     document.getElementById("menuBtn").onclick = () => {
-        console.log("Retour au menu (à coder)");
+        window.location.href = "/";
     };
 }
 
@@ -211,13 +230,6 @@ function draw() {
 
     // Fond
     ctx.drawImage(backgroundImage, 0, 0);
-
-    // DEBUG : afficher les checkpoints
-for (let cp of checkpoints) {
-    ctx.strokeStyle = "yellow";
-    ctx.lineWidth = 3;
-    ctx.strokeRect(cp.x, cp.y, cp.width, cp.height);
-}
 
 
     // Accélération horizontale

@@ -14,6 +14,18 @@ DATA_FILE = os.path.join('data', 'save.json')
 def index():
     return render_template('index.html')
 
+@app.route('/circuit1')
+def circuit1():
+    return render_template('circuit1.html')
+
+@app.route('/circuit2')
+def circuit2():
+    return render_template('circuit2.html')
+
+@app.route('/circuit3')
+def circuit3():
+    return render_template('circuit3.html')
+
 @app.route('/api/save', methods=['POST'])
 def save_data():
     data = request.json

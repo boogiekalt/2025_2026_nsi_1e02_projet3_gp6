@@ -1,56 +1,31 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8" />
-    <title>Course Toto</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"> />
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f0f0f0;
-            padding: 20px;
-        }
-        #gameCanvas {
-            background-color: rgb(41, 196, 41);
-            display: block;
-            margin: 20px auto;
-            border: 2px solid rgb(12, 14, 12);
-        }
-        .controls {
-            margin-top: 20px;
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-       
-        
-    </style>
+  <meta charset="UTF-8">
+  <title>Choix du circuit</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
-<div id="raceResults" class="results-overlay" style="display:none;">
-    <div class="results-window">
-        <h2>🏁 Course terminée</h2>
-        <p id="finalTime"></p>
-        <p id="finalLaps"></p>
-
-        <h3>📜 Scores précédents</h3>
-        <ul id="scoreList"></ul>
-
-        <div class="buttons">
-            <button id="retryBtn">Rejouer</button>
-            <button id="menuBtn">Retour au menu</button>
-        </div>
-    </div>
-</div>
-
 <body>
-    <h1>Course Toto</h1>
-    <canvas id="gameCanvas" width="1500" height="600"></canvas>
-    
-    <canvas id="collisionCanvas" width="1500" height="600" style="display:none;"></canvas>
+  <div id="menu">
+    <h1>Choisis ton circuit</h1>
 
-    <script src="{{ url_for('static', filename='js/game.js') }}"></script>
+    <div class="circuits">
+
+      <a href="/circuit1">
+        <img src="{{ url_for('static', filename='img/circuit_1.jpg') }}" alt="Circuit 1">
+      </a>
+
+      <a href="/circuit2">
+        <img src="{{ url_for('static', filename='img/circuit_2.jpg') }}" alt="Circuit 2">
+      </a>
+
+      <a href="/circuit3">
+        <img src="{{ url_for('static', filename='img/collision_map.png') }}" alt="Circuit 3">
+      </a>
+
+    </div>
+  </div>
 </body>
 </html>
+
